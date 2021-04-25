@@ -1,0 +1,24 @@
+#!/bin/bash
+
+read -p "This script will shorten the filename of this folder"
+
+
+for FILE in *; do
+	EXTENSION="${FILE##*.}"
+
+	WITHOUTEXTENSION="${FILE%.*}"
+
+	SHORTNAME=$(echo $WITHOUTEXTENSION | sed 's/^videoblocks-//' | head -c 50)
+
+	NEWNAME="$SHORTNAME.$EXTENSION"
+
+	#echo "file: $FILE , extension: $EXTENSION, name without extension: $WITHOUTEXTENSION"
+
+	if [ "$FILE" = "$NEWNAME" ]; then
+		echo "Name won't change"
+	else
+		echo "renaming $FILE to $NEWNAME"
+		mv $FILE $NEWNAME
+	fi
+done
+
