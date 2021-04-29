@@ -1,0 +1,9 @@
+#!/bin/bash
+
+read -p "This script will convert wav files to flac"
+
+
+for FILE in *.wav; do
+	flac --keep-foreign-metadata -8 $FILE
+done
+
