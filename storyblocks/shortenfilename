@@ -8,7 +8,7 @@ for FILE in *; do
 
 	WITHOUTEXTENSION="${FILE%.*}"
 
-	SHORTNAME=$(echo $WITHOUTEXTENSION | sed 's/^videoblocks-//' | head -c 50)
+	SHORTNAME=$(echo $WITHOUTEXTENSION | sed 's/^videoblocks-//' | sed 's/^audioblocks-//' | head -c 50)
 
 	NEWNAME="$SHORTNAME.$EXTENSION"
 
@@ -17,8 +17,12 @@ for FILE in *; do
 	if [ "$FILE" = "$NEWNAME" ]; then
 		echo "Name won't change"
 	else
-		echo "renaming $FILE to $NEWNAME"
-		mv $FILE $NEWNAME
+		if [ -d "$FILE" ]; then
+			echo "$FILE is a folder"
+		else
+			echo "renaming $FILE to $NEWNAME"
+			mv $FILE $NEWNAME
+		fi
 	fi
 done
 
