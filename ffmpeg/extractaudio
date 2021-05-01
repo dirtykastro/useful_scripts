@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+    echo "Please enter the path of the video file to extract the audio"
+fi
+
+if [ -f "$1" ]
+then
+	OUTPUT="$1.wav"
+
+	echo "extracting audio of file $1 to $OUTPUT"
+
+	ffmpeg -i $1 -vn -acodec pcm_s16le -ar 44100 -ac 2 $1.wav
+else
+    echo "The file $1 does not exist"
+fi
+
