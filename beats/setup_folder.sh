@@ -1,5 +1,16 @@
 #!/bin/bash
 
+GITIGNOREFILE=".gitignore"
+
+if [ -f $GITIGNOREFILE ];
+then
+	echo "$GITIGNOREFILE exists. Proceed with the folder setup"
+else
+	echo "$GITIGNOREFILE doesn't exist"
+	exit 1
+fi
+
+
 FOLDERSLIST="AmazonPolly Ardour Master/Mixed Master/Stems Master/Mastered Reason Video/Render Video/StoryBlocks Video/Badge"
 
 for FOLDER in $FOLDERSLIST; do
@@ -15,19 +26,11 @@ done
 # Define a string variable with a value
 GITIGNORELIST=".DS_Store Video/Badge"
 
-GITIGNOREFILE=".gitignore"
-
 for IGNORE in $GITIGNORELIST; do
-	if [ -f $GITIGNOREFILE ];
+	if grep -q "$IGNORE" "$GITIGNOREFILE";
 	then
-		if grep -q "$IGNORE" "$GITIGNOREFILE";
-		then
-			echo "$IGNORE already in $GITIGNOREFILE"
-		else
-			echo "$IGNORE" >> $GITIGNOREFILE
-		fi	
-
+		echo "$IGNORE already in $GITIGNOREFILE"
 	else
-		echo "$GITIGNOREFILE doesn't exist"
-	fi
+		echo "$IGNORE" >> $GITIGNOREFILE
+	fi	
 done
