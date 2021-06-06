@@ -24,7 +24,7 @@ done
 
 
 # Define a string variable with a value
-GITIGNORELIST=".DS_Store Video/Badge Master/*/*.wav *.wav.pk"
+GITIGNORELIST=".DS_Store Video/Badge Master/*/*.wav *.wav.pk Ardour/*/peaks Ardour/*/dead"
 
 for IGNORE in $GITIGNORELIST; do
 	if grep -q "$IGNORE" "$GITIGNOREFILE";
